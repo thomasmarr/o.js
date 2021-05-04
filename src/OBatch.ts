@@ -1,6 +1,7 @@
 import { OdataConfig } from "./OdataConfig";
 import { OdataQuery } from "./OdataQuery";
 import { ORequest } from "./ORequest";
+const Headers = require("cross-fetch").Headers;
 
 const CRLF = "\r\n";
 

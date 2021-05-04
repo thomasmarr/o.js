@@ -12,8 +12,7 @@ export class ORequest {
   }
 
   public get fetch() {
-    const req = new Request(this.url.href, this.config);
-    return fetch(req, this.config);
+    return fetch(this.url.href, this.config);
   }
 
   public applyQuery(query?: OdataQuery) {

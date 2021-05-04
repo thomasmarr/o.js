@@ -1,5 +1,6 @@
 import { OdataConfig } from "./OdataConfig";
 import { OHandler } from "./OHandler";
+const Headers = require("cross-fetch").Headers;
 
 /**
  * Use the 'o'-function to initialize a request directly or use the returned

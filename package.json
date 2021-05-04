@@ -1,6 +1,6 @@
 {
-  "name": "o.js",
-  "description": "o.js is a isomorphic Odata Javascript library to simplify the request of data. The main goal is to build a standalone, lightweight and easy to understand Odata lib.",
+  "name": "odata-node",
+  "description": "This is a fork of o.js which runs on node. o.js is a isomorphic Odata Javascript library to simplify the request of data. The main goal is to build a standalone, lightweight and easy to understand Odata lib.",
   "version": "1.2.1",
   "main": "dist/cjs/o.js",
   "browser": "dist/umd/o.js",
@@ -43,7 +43,8 @@
   },
   "author": "Jan Hommes",
   "contributors": [
-    "Matteo Antony Mistretta <antony.mistretta@gmail.com> (http://www.ingloriouscoderz.it)"
+    "Matteo Antony Mistretta <antony.mistretta@gmail.com> (http://www.ingloriouscoderz.it)",
+    "Thomas Marr <thomasmarr.dev@gmail.com>"
   ],
   "license": "MIT"
 }
