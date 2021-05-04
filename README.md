@@ -1,3 +1,6 @@
+# THIS IS A FORK OF THE o.js PROJECT
+The o.js project states that it runs on node. I tried unsuccessfully to use it on a node (12.22.1) project. This fork is a fix which enables it to run in my project environment. It may be unnecessary in your environment. Please try o.js before using this.
+
 # o.js
 
 o.js is a isomorphic Odata Javascript library to simplify the request of data. The main goal is to build a **standalone, lightweight and easy** to understand Odata lib.
@@ -5,49 +8,12 @@ o.js is a isomorphic Odata Javascript library to simplify the request of data. T
 ## Install
 
 ```
-npm install odata
+npm install odata-node
 ```
-
-> Or you can use `npm install o.js` which will resolve the same package
-
-## Usage in browser
-
-### In a module or Typescript
-```javascript
-import { o } from 'odata';
-
-(async () => {
-  // chaining
-  const data1 = await o('http://my.url')
-    .get('resource')
-    .query({ $top: 3 });
-
-  // handler
-  const oHandler = o('http://my.url');
-  const data2 = await oHandler
-    .get('resource')
-    .query({ $top: 3 });
-})();
-```
-
-### Or in a script tag
-```html
-<script src="node_modules/odata/dist/umd/o.js">
-```
-
-It's then placed on the `window.odata`: 
-```javascript
-window.odata
-  .o('http://my.url')
-  .get('resource')
-  .query({ $top: 3 })
-  .then(function (data) {});
-```
-
 
 ## Usage in node
 ```javascript
-const o = require('odata').o;
+const o = require('odata-node').o;
 
 // promise example
 o('http://my.url')
@@ -164,7 +130,7 @@ oHandler.get('People/$count').query().then((count) => {})
 The queries are always attached as the [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams).
 
 ## Just fetching
-The lib tries to parse the data on each request. Sometimes that is not wanted (e.g. when you need a status-code or need to access odata meta data), therefor you can use the `.fetch` method that acts like the default [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+The lib tries to parse the data on each request. Sometimes that is not wanted (e.g. when you need a status-code or need to access odata meta data), therefore you can use the `.fetch` method that acts like the default [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
 
 ## Batching
 By default o.js chains request in sequent. You can batch them together by using `batch()`. They are then send to the defined batch endpoint in the config. Changsets are at the moment in a experimental phase and needs to be enabled in the config.
