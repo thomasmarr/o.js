@@ -95,7 +95,7 @@ describe("Instant request", () => {
   test("Request any thing that is put in the init request", async () => {
     // when
     const data = await o(
-      "https://services.odata.org/TripPinRESTierService/People?$top=2"
+      "https://services.odata.org/V4/TripPinServiceRW/People?$top=2"
     )
       .get()
       .query();
@@ -107,7 +107,7 @@ describe("Instant request", () => {
     // given
     const [resource1, resource2] = ["People", "Airlines"];
     // when
-    const data = await o("https://services.odata.org/TripPinRESTierService/")
+    const data = await o("https://services.odata.org/V4/TripPinServiceRW/")
       .get(resource1)
       .get(resource2)
       .query({ $top: 2 });
@@ -120,7 +120,7 @@ describe("Instant request", () => {
   test("Attach the correct queries to the request", async () => {
     // when
     const data = await o(
-      "https://services.odata.org/TripPinRESTierService/People?$top=2",
+      "https://services.odata.org/V4/TripPinServiceRW/People?$top=2",
       {
         query: { $top: 1, $filter: `FirstName eq 'john'` },
       }
@@ -137,7 +137,7 @@ describe("Instant request", () => {
   test("Check right URL Params override. query-parameter in fetch()/query() wins over query-config", async () => {
     // when
     const data = await o(
-      "https://services.odata.org/TripPinRESTierService/People",
+      "https://services.odata.org/V4/TripPinServiceRW/People",
       {
         query: { $top: 1 },
       }
@@ -154,7 +154,7 @@ describe("Instant request", () => {
   test("Check right URL Params override. query-parameter in fetch()/query() wins over baseUrl", async () => {
     // when
     const data = await o(
-      "https://services.odata.org/TripPinRESTierService/People?$top=1"
+      "https://services.odata.org/V4/TripPinServiceRW/People?$top=1"
     )
       .get()
       .fetch({ $top: 2 });
@@ -168,7 +168,7 @@ describe("Instant request", () => {
   test("Check right URL Params override. query-config wins over baseUrl", async () => {
     // when
     const data = await o(
-      "https://services.odata.org/TripPinRESTierService/People?$top=1",
+      "https://services.odata.org/V4/TripPinServiceRW/People?$top=1",
       {
         query: { $top: 2 },
       }
@@ -187,7 +187,7 @@ describe("Request handling", () => {
   let oHandler;
 
   beforeEach(() => {
-    oHandler = o("https://services.odata.org/TripPinRESTierService/");
+    oHandler = o("https://services.odata.org/V4/TripPinServiceRW/");
   });
 
   test("Queue requests", () => {
@@ -268,7 +268,7 @@ describe("GET request", () => {
   let oHandler;
 
   beforeAll(() => {
-    oHandler = o("https://services.odata.org/TripPinRESTierService/");
+    oHandler = o("https://services.odata.org/V4/TripPinServiceRW/");
   });
 
   test("Request to a resource should return an array", async () => {
@@ -454,7 +454,7 @@ describe("Batching", () => {
     const data = await oHandler.get(resource1).get(resource2).batch();
     // expect
     expect(data.length).toBe(2);
-    expect(data[0].length).toBeDefined();
+    expect(data[0].body.length).toBeDefined();
   });
 
   test("Batch multiple GET requests and allow to add a query", async () => {
@@ -466,7 +466,7 @@ describe("Batching", () => {
       .get(resource2)
       .batch({ $top: 2 });
     // expect
-    expect(data[0].length).toBe(2);
+    expect(data[0].body.length).toBe(2);
   });
 
   test("Batch multiple GET requests and patch something", async () => {
@@ -480,8 +480,8 @@ describe("Batching", () => {
       .batch();
     // expect
     expect(data.length).toBe(3);
-    expect(data[1]).toBe(204);
-    expect(data[2].Name).toBe("New");
+    expect(data[1].status).toBe(204);
+    expect(data[2].body.Name).toBe("New");
   });
 
   test("Batch POST and PATCH with useChangeset=true", async () => {
@@ -502,8 +502,8 @@ describe("Batching", () => {
     const data = await request.batch();
     // expect
     expect(data.length).toBe(2);
-    expect(data[0].LastName).toBe(resouce1data.LastName);
-    expect(data[1]).toBe(204);
+    expect(data[0].body.LastName).toBe(resouce1data.LastName);
+    expect(data[1].status).toBe(204);
   });
 
   // Content ID seems to have a problem in the test implementation (or I don't get the right implementation)
@@ -525,7 +525,7 @@ describe("Batching", () => {
       .batch();
     // expect
     expect(result.length).toBe(3);
-    expect(result[1]).toBe(204);
-    expect(result[2].LastName).toBe("Bar");
+    expect(result[1].status).toBe(204);
+    expect(result[2].body.LastName).toBe("Bar");
   });
 });
